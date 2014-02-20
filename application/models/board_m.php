@@ -70,7 +70,7 @@ class Board_m extends CI_Model
     /**
      * 게시물 입력
      *
-     * @parem array $arrays 테이블명, 제목, 내용 1차 배열
+     * @param array $arrays 테이블명, 제목, 내용 1차 배열
      * @return boolean 입력 성공여부
      */
     function insert_board($arrays)
@@ -93,7 +93,7 @@ class Board_m extends CI_Model
     /**
      * 게시물 수정
      *
-     * @parem array $arrays 테이블명, 게시물 번호, 제목, 내용 1차 배열
+     * @param array $arrays 테이블명, 게시물 번호, 제목, 내용 1차 배열
      * @return boolean 수정 성공여부
      */
     function modify_board($arrays)
@@ -108,6 +108,25 @@ class Board_m extends CI_Model
         );
 
         $result = $this->db->update($arrays['table'], $modify_array, $where);
+
+        // 결과 반환
+        return $result;
+    }
+
+    /**
+     * 게시물 삭제
+     *
+     * @param string $table 테이블명
+     * @param string $no 게시물 번호
+     * @return boolean 삭제 성공 여부
+     */
+    function delete_content($table, $no)
+    {
+        $delete_array = array(
+            'board_id' => $no
+        );
+
+        $result = $this->db->delete($table, $delete_array);
 
         // 결과 반환
         return $result;
