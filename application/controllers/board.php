@@ -72,8 +72,8 @@ class Board extends CI_Controller {
         //페이징 링크를 생서하여 view에서 사용할 변수에 할당
         $data['pagination'] = $this->pagination->create_links();
 
-        //게시물 목록을 불러오기 위한 offset, limit 값 가져오기
-        $page = $this->uri->segment($uri_segment, 1);
+        //게시판 목록을 불러오기 위한 offset, limit 값 가져오기
+        $data['page'] = $page = $this->uri->segment($uri_segment, 1);
 
         if( $page > 1 )
         {
@@ -85,6 +85,21 @@ class Board extends CI_Controller {
 
         $data['list'] = $this->board_m->get_list($this->uri->segment(3), '', $start, $limit, $search_word);
         $this->load->view('board/list_v', $data);
+    }
+
+    /**
+     * 게시물 보기
+     */
+    function view()
+    {
+        $table = $this->uri->segment(3);
+        $board_id = $this->uri->segment(5);
+
+        //게시판 이름과 게시물 번호에 해당하는 게시물 가져오기
+        $data['views'] = $this->board_m->get_view($table, $board_id);
+
+        // view 호출
+        $this->load->view('board/view_v', $data);
     }
 
     /**

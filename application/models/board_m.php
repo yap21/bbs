@@ -44,6 +44,28 @@ class Board_m extends CI_Model
         }
         return $result;
     }
+
+    /**
+     * 게시물 상세보기 가져오기
+     *
+     * @param string $table 게시판 테이블
+     * @param string $id 게시물번호
+     * @return array
+     */
+    function get_view($table, $id)
+    {
+        // 조횟수 증가
+        $sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE board_id='".$id."'";
+        $this->db->query($sql0);
+
+        $sql = "SELECT * FROM ".$table." WHERE board_id='".$id."'";
+        $query = $this->db->query($sql);
+
+        // 게시물 내용 반환
+        $result = $query->row();
+
+        return $result;
+    }
 }
 
 /* End of file board_m.php */
