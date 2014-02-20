@@ -26,25 +26,34 @@
       <file leaf-file-name="board_m.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/models/board_m.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="32" selection-start="1588" selection-end="1588" vertical-scroll-proportion="-30.041666" vertical-offset="239" max-vertical-offset="1155">
+            <state line="81" column="46" selection-start="2007" selection-end="2007" vertical-scroll-proportion="-26.291666" vertical-offset="584" max-vertical-offset="1500">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view_v.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="write_v.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/board/write_v.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="73" selection-start="1493" selection-end="1499" vertical-scroll-proportion="-24.375" vertical-offset="0" max-vertical-offset="750">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view_v.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/board/view_v.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="51" selection-start="793" selection-end="793" vertical-scroll-proportion="0.37663755" vertical-offset="0" max-vertical-offset="916">
+            <state line="26" column="89" selection-start="1393" selection-end="1393" vertical-scroll-proportion="-16.25" vertical-offset="0" max-vertical-offset="585">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="board.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="board.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/controllers/board.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="7" selection-start="2753" selection-end="2753" vertical-scroll-proportion="-4.9215684" vertical-offset="1309" max-vertical-offset="2340">
+            <state line="139" column="14" selection-start="3912" selection-end="3912" vertical-scroll-proportion="0.4679415" vertical-offset="1669" max-vertical-offset="3225">
               <folding />
             </state>
           </provider>
@@ -53,7 +62,7 @@
       <file leaf-file-name="list_v.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/board/list_v.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="136" selection-start="761" selection-end="761" vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="765">
+            <state line="23" column="217" selection-start="842" selection-end="842" vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="810">
               <folding />
             </state>
           </provider>
@@ -113,10 +122,11 @@
         <option value="$PROJECT_DIR$/application/config/routes.php" />
         <option value="$PROJECT_DIR$/application/views/header_v.php" />
         <option value="$PROJECT_DIR$/application/helpers/alert_helper.php" />
-        <option value="$PROJECT_DIR$/application/models/board_m.php" />
-        <option value="$PROJECT_DIR$/application/views/board/list_v.php" />
-        <option value="$PROJECT_DIR$/application/controllers/board.php" />
+        <option value="$PROJECT_DIR$/application/views/board/write_v.php" />
         <option value="$PROJECT_DIR$/application/views/board/view_v.php" />
+        <option value="$PROJECT_DIR$/application/views/board/list_v.php" />
+        <option value="$PROJECT_DIR$/application/models/board_m.php" />
+        <option value="$PROJECT_DIR$/application/controllers/board.php" />
       </list>
     </option>
   </component>
@@ -652,13 +662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/board/list_v.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="136" selection-start="761" selection-end="761" vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="765">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/config/routes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="40" column="37" selection-start="1426" selection-end="1431" vertical-scroll-proportion="0.65502185" vertical-offset="0" max-vertical-offset="916">
@@ -666,23 +669,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/board_m.php">
+    <entry file="file://$PROJECT_DIR$/application/views/board/write_v.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="32" selection-start="1588" selection-end="1588" vertical-scroll-proportion="-30.041666" vertical-offset="239" max-vertical-offset="1155">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/board.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="7" selection-start="2753" selection-end="2753" vertical-scroll-proportion="-4.9215684" vertical-offset="1309" max-vertical-offset="2340">
+        <state line="39" column="73" selection-start="1493" selection-end="1499" vertical-scroll-proportion="-24.375" vertical-offset="0" max-vertical-offset="750">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/board/view_v.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="51" selection-start="793" selection-end="793" vertical-scroll-proportion="0.37663755" vertical-offset="0" max-vertical-offset="916">
+        <state line="26" column="89" selection-start="1393" selection-end="1393" vertical-scroll-proportion="-16.25" vertical-offset="0" max-vertical-offset="585">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/board/list_v.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="217" selection-start="842" selection-end="842" vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/board_m.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="46" selection-start="2007" selection-end="2007" vertical-scroll-proportion="-26.291666" vertical-offset="584" max-vertical-offset="1500">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/board.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="14" selection-start="3912" selection-end="3912" vertical-scroll-proportion="0.4679415" vertical-offset="1669" max-vertical-offset="3225">
           <folding />
         </state>
       </provider>
