@@ -89,6 +89,29 @@ class Board_m extends CI_Model
         // 결과 반환
         return $result;
     }
+
+    /**
+     * 게시물 수정
+     *
+     * @parem array $arrays 테이블명, 게시물 번호, 제목, 내용 1차 배열
+     * @return boolean 수정 성공여부
+     */
+    function modify_board($arrays)
+    {
+        $modify_array = array(
+            'subject'   => $arrays['subject'],
+            'contents'  => $arrays['contents']
+        );
+
+        $where = array(
+            'board_id' => $arrays['board_id']
+        );
+
+        $result = $this->db->update($arrays['table'], $modify_array, $where);
+
+        // 결과 반환
+        return $result;
+    }
 }
 
 /* End of file board_m.php */
