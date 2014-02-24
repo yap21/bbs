@@ -1,20 +1,3 @@
-<script>
-    $(document).ready(function(){
-        $("#write_btn").click(function(){
-            if($('#input01').val() == ''){
-                alert('제목을 입력해주세요.');
-                $("#input01").focus();
-                return false;
-            }else{
-                alert('내용을 입력해주세요.');
-                $("#input02").focus();
-                return false;
-            }else{
-                $('#write_action').submit();
-            }
-        });
-    });
-</script>
 <article id="board_area">
     <header>
         <h1></h1>
@@ -26,13 +9,17 @@
             <div class="control-group">
                 <label class="control-label" for="input01">제목</label>
                 <div class="controls">
-                    <input type="text" class="input-xlarge" id="input01" name="subject">
+                    <input type="text" class="input-xlarge" id="input01" name="subject" value="<?php echo set_value('subject'); ?>">
                     <p class="help-block">게시물의 제목을 써주세요.</p>
                 </div>
                 <label class="control-label" for="input02">내용</label>
                 <div class="controls">
-                    <textarea class="input-xlarge" id="input02" name="contents" rows="5"></textarea>
+                    <textarea class="input-xlarge" id="input02" name="contents" rows="5" value="<?php echo set_value('contents'); ?>"></textarea>
                     <p class="help-block">게시물의 내용을 써주세요.</p>
+                </div>
+
+                <div class="controls">
+                    <p class="help-block"><?php echo validation_errors(); ?></p>
                 </div>
 
                 <div class="form-actions">
