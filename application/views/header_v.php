@@ -54,6 +54,6 @@
 
     <nav id="gnb"><!-- gnb Start -->
         <ul>
-            <li><a rel="external" href="/bbs/<?php echo $this->uri->segment(1);?>/lists/<?php echo $this->uri->segment(3);?>">게시판 프로젝트</a></li>
+            <li><a rel="external" href="/bbs/board/lists/ci_board">게시판 프로젝트</a></li>
         </ul>
     </nav><!-- gnb End -->

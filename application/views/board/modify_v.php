@@ -20,7 +20,11 @@
         <h1></h1>
     </header>
 
-    <form class="form-horizontal" method="post" action="" id="write_action">
+    <!--<form class="form-horizontal" method="post" action="" id="write_action">-->
+    <?php
+    $attributes = array('class' => 'form-horizontal','id' => 'write_action');
+    echo form_open('/board/modify/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5), $attributes);
+    ?>
         <fieldset>
             <legend>게시물 수정</legend>
             <div class="control-group">
@@ -37,7 +41,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary" id="write_btn">작성</button>
-                    <button class="btn" onclick="document.location.reload()">취소</button>
+                    <button type="reset" class="btn" onclick="document.location.reload()">취소</button>
                 </div>
             </div>
         </fieldset>

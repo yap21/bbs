@@ -76,8 +76,8 @@ class Board_m extends CI_Model
     function insert_board($arrays)
     {
         $insert_array = array(
-            'board_pid' => 0,          // 원글이라 0을 입력, 댓글일 경우 원글 번호 입력
-            'user_id'   => 'advisor',  // 로그인 아이디
+            'board_pid' => 0,                   // 원글이라 0을 입력, 댓글일 경우 원글 번호 입력
+            'user_id'   => $arrays['user_id'],  // 로그인 아이디
             'user_name' => '웅파',
             'subject'   => $arrays['subject'],
             'contents'  => $arrays['contents'],
@@ -130,6 +130,21 @@ class Board_m extends CI_Model
 
         // 결과 반환
         return $result;
+    }
+
+    /**
+     * 게시물 작성자 아이디 반환
+     * return string 작성자 아이디
+     */
+    function writer_check()
+    {
+        $table = $this->uri->segment(3);
+        $board_id = $this->uri->segment(5);
+
+        $sql = "SELECT user_id FROM ".$table." WHERE board_id = '".$board_id."'";
+        $query = $this->db->query($sql);
+
+        return $query->row();
     }
 }
 
