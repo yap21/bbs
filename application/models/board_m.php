@@ -146,6 +146,49 @@ class Board_m extends CI_Model
 
         return $query->row();
     }
+
+    /**
+     * 댓글 입력
+     *
+     * @param array $array 테이블명, 게시물 제목, 게시물 내용, 아이디 1차 배열
+     * @return boolean 입력 성공 여부
+     */
+    function insert_comment($arrays)
+    {
+        $insert_array = array(
+            'board_pid' => $arrays['board_pid'],    // 원 글 번호 입력
+            'user_id' => $arrays["user_id"],
+            'user_name' => $arrays['user_id'],
+            'subject' => $arrays['subject'],
+            'contents' => $arrays['contents'],
+            'reg_date' => date("Y-m-d H:i:s")
+        );
+
+        $this->db->insert($arrays['table'], $insert_array);
+
+        $board_id = $this->db->insert_id();
+
+        // 결과 반환
+        return $board_id;
+    }
+
+    /**
+     * 댓글 리스트 가져오기
+     *
+     * @param string $table 게시판 테이블
+     * @param string $id 게시물 번호
+     * @return array
+     */
+    function get_comment($table, $id)
+    {
+        $sql = "SELECT * FROM ".$table." WHERE board_pid='".$id."' ORDER BY board_id DESC";
+        $query = $this->db->query($sql);
+
+        // 댓글 리스트 반환
+        $result = $query->result();
+
+        return $result;
+    }
 }
 
 /* End of file board_m.php */

@@ -30,7 +30,7 @@ function sendRequest(url, params, callback, method) {
         httpUrl = httpUrl + '?' + httpParams;
     }
     httpRequest.open(httpMethod, httpUrl, true);
-    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urloncoded');
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     httpRequest.onreadystatechange = callback;
     httpRequest.send(httpMethod == 'POST' ? httpParams : null);
 }

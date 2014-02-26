@@ -96,22 +96,17 @@ class Board extends CI_Controller {
         $this->load->helper('alert');
         echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 
-        if(@$this->session->userdata('logged_in') == TRUE)
-        {
-            $table = $this->uri->segment(3);
-            $board_id = $this->uri->segment(5);
+        $table = $this->uri->segment(3);
+        $board_id = $this->uri->segment(5);
 
-            //게시판 이름과 게시물 번호에 해당하는 게시물 가져오기
-            $data['views'] = $this->board_m->get_view($table, $board_id);
+        //게시판 이름과 게시물 번호에 해당하는 게시물 가져오기
+        $data['views'] = $this->board_m->get_view($table, $board_id);
 
-            // view 호출
-            $this->load->view('board/view_v', $data);
-        }
-        else
-        {
-            alert('로그인 후 확인하세요.', '/bbs/auth/login');
-            exit;
-        }
+        //게시판 이름과 게시물 번호에 해당하는 댓글 리스트 가져오기
+        $data['comment_list'] = $this->board_m->get_comment($table, $board_id);
+
+        // view 호출
+        $this->load->view('board/view_v', $data);
     }
 
     /**
