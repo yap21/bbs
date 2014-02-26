@@ -89,6 +89,43 @@ class Ajax_board extends CI_Controller {
             echo "9000";    //로그인 필요 에러
         }
     }
+
+    public function ajax_comment_delete()
+    {
+        if(@$this->session->userdata('logged_in') == TRUE)
+        {
+            $this->load->model('board_m');
+
+            $table = $this->input->post("table", TRUE);
+            $board_id = $this->input->post("board_id", TRUE);
+
+            // 글 작성자가 본인인지 검즘
+            $writer_id = $this->board_m->writer_check($table, $board_id);
+
+            if($writer_id->user_id != $this->session->userdata('username'))
+            {
+                echo "8000";    // 본인이 작성한 글이 아닙니다.
+            }
+            else
+            {
+                $result = $this->board_m->delete_content($table, $board_id);
+
+                if($result)
+                {
+                    echo $board_id;
+                }
+                else
+                {
+                    // 글 실패 시
+                    echo "2000";
+                }
+            }
+        }
+        else
+        {
+            echo "9000";    // 로그인 필요 에러
+        }
+    }
 }
 
 /* End of file ajax_board.php */

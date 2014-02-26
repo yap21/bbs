@@ -37,6 +37,43 @@
         }
     }
 
+    function comment_delete(no)
+    {
+        var csrf_token = getCookie('csrf_cookie_name');
+        var name = "csrf_test_name=" + csrf_token + "&table=<?php echo $this->uri->segment(3);?>&board_id=" + no;
+        sendRequest("/bbs/ajax_board/ajax_comment_delete", name, delete_action, "POST");
+    }
+
+    function delete_action()
+    {
+        if(httpRequest.readyState == 4)
+        {
+            if(httpRequest.status == 200)
+            {
+                if(httpRequest.responseText == 9000)
+                {
+                    alert('로그인하여야 합니다.');
+                }
+                else if(httpRequest.responseText == 8000)
+                {
+                    alert('본인의 댓글만 삭제할 수 있습니다.')
+                }
+                else if(httpRequest.responseText == 2000)
+                {
+                    alert('다시 삭제하세요.')
+                }
+                else
+                {
+                    var no = httpRequest.responseText;
+                    var delete_tr = document.getElementById("row_num_"+ no);
+
+                    delete_tr.parentNode.removeChild(delete_tr);
+                    alert('삭제되었습니다.');
+                }
+            }
+        }
+    }
+
     function getCookie(name)
     {
         var nameOfCookie = name + "=";
@@ -108,12 +145,13 @@
             foreach($comment_list as $lt)
             {
             ?>
-            <tr>
+            <tr id="row_num_<?php echo $lt->board_id;?>">
                 <th scope="row">
                     <?php echo $lt->user_id;?>
                 </th>
                 <td><?php echo $lt->contents;?></td>
                 <td><time datetime="<?php echo $lt->reg_date;?>"><?php echo $lt->reg_date;?></time></td>
+                <td><a href="#" onclick="javascript:comment_delete('<?php echo $lt->board_id;?>')"><i class="icon-trash"></i>삭제</a></td>
             </tr>
             <?php
             }

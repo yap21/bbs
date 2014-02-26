@@ -129,6 +129,8 @@ class Board extends CI_Controller {
 
             if($this->form_validation->run() == TRUE)
             {
+                $table = $this->uri->segment(3);
+
                 // 주소 중에서 page 세그먼트가 있는지 검사하기 위해 주소를 배열로 변환
                 $uri_array = $this->segment_explode($this->uri->uri_string());
 
@@ -142,13 +144,13 @@ class Board extends CI_Controller {
                 if(!$this->input->post('subject', TRUE) AND !$this->input->post('contents', TRUE))
                 {
                     // 글 내용이 없을 경우, 프로그램단에서 한 번 체크
-                    alert('비정상적인 접근입니다.', '/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+                    alert('비정상적인 접근입니다.', '/bbs/board/lists/'.$table.'/page/'.$pages);
                     exit;
                 }
 
                 // var_dump($_POST);
                 $write_data = array(
-                    'table' => $this->uri->segment(3), //게시판 테이블명
+                    'table' => $table, //게시판 테이블명
                     'subject' => $this->input->post('subject', TRUE),
                     'contents' => $this->input->post('contents', TRUE),
                     'user_id' => $this->session->userdata('username')
@@ -159,13 +161,13 @@ class Board extends CI_Controller {
                 if($result)
                 {
                     // 글 작성 성공 시 게시물 목록으로
-                    alert('입력되었습니다.', '/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+                    alert('입력되었습니다.', '/bbs/board/lists/'.$table.'/page/'.$pages);
                     exit;
                 }
                 else
                 {
                     // 글 작성 실패 시 게시물 목록으로
-                    alert('다시 입력해 주세요.', '/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+                    alert('다시 입력해 주세요.', '/bbs/board/lists/'.$table.'/page/'.$pages);
                     exit;
                 }
             }
@@ -203,12 +205,15 @@ class Board extends CI_Controller {
 
         if(@$this->session->userdata('logged_in') == TRUE)
         {
+            $table = $this->uri->segment(3);
+            $board_id = $this->uri->segment(5);
+
             // 수정하려는 글의 작성자가 본인인지 검증
-            $writer_id = $this->board_m->writer_check();
+            $writer_id = $this->board_m->writer_check($table, $board_id);
 
             if($writer_id->user_id != $this->session->userdata('username'))
             {
-                alert('본인이 작성한 글이 아닙니다.','/bbs/board/view/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5).'/page/'.$pages);
+                alert('본인이 작성한 글이 아닙니다.','/bbs/board/view/'.$table.'/board_id/'.$board_id.'/page/'.$pages);
                 exit;
             }
 
@@ -224,14 +229,14 @@ class Board extends CI_Controller {
                 if(!$this->input->post('subject', TRUE) AND !$this->input->post('contents', TRUE))
                 {
                     // 글 내용이 없을 경우, 프로그램단에서 한 번 더 체크
-                    alert('비정상적인 접근입니다.','/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+                    alert('비정상적인 접근입니다.','/bbs/board/lists/'.$table.'/page/'.$pages);
                     exit;
                 }
 
                 // var_dump($_POST);
                 $modify_data = array(
-                    'table'     => $this->uri->segment(3), //게시판 테이블명
-                    'board_id'  => $this->uri->segment(5), //게시물 번호
+                    'table'     => $table, //게시판 테이블명
+                    'board_id'  => $board_id, //게시물 번호
                     'subject'   => $this->input->post('subject', TRUE),
                     'contents'  => $this->input->post('contents', TRUE)
                 );
@@ -241,20 +246,20 @@ class Board extends CI_Controller {
                 if($result)
                 {
                     // 글 작성 성공 시 게시물 목록으로
-                    alert('수정되었습니다.', '/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+                    alert('수정되었습니다.', '/bbs/board/lists/'.$table.'/page/'.$pages);
                     exit;
                 }
                 else
                 {
                     // 글 수정 실패 시 게시물 목록으로
-                    alert('다시 수정해 주세요.', '/bbs/board/view/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5).'/page/'.$pages);
+                    alert('다시 수정해 주세요.', '/bbs/board/view/'.$table.'/board_id/'.$board_id.'/page/'.$pages);
                     exit;
                 }
             }
             else
             {
                 // 게시물 내용 가져오기
-                $data['views'] = $this->board_m->get_view($this->uri->segment(3), $this->uri->segment(5));
+                $data['views'] = $this->board_m->get_view($table, $board_id);
 
                 // 쓰기 폼 view 호출
                 $this->load->view('board/modify_v', $data);
@@ -278,28 +283,32 @@ class Board extends CI_Controller {
 
         if(@$this->session->userdata('logged_in') == TRUE)
         {
+            $table = $this->uri->segment(3);
+            $board_id = $this->uri->segment(5);
+            $page = $this->uri->segment(7);
+
             // 삭제하려는 글의 작성자가 본인인지 검증
-            $write_id = $this->board_m->writer_check();
+            $write_id = $this->board_m->writer_check($table, $board_id);
 
             if($write_id->user_id != $this->session->userdata('username'))
             {
-                alert('본인이 작성한 글이 아닙니다.','/bbs/board/view/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5).'/page/'.$this->uri->segment(7));
+                alert('본인이 작성한 글이 아닙니다.','/bbs/board/view/'.$table.'/board_id/'.$board_id.'/page/'.$page);
                 exit;
             }
 
             // 게시물 번호에 해당하는 게시물 삭제
-            $return = $this->board_m->delete_content($this->uri->segment(3), $this->uri->segment(5));
+            $return = $this->board_m->delete_content($table, $board_id);
 
             // 게시물 목록으로 돌아가기
             if($return)
             {
                 // 삭제가 성공한 경우
-                alert('삭제되었습니다.','/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$this->uri->segment(7));
+                alert('삭제되었습니다.','/bbs/board/lists/'.$table.'/page/'.$page);
             }
             else
             {
                 // 삭제가 실패한 경우
-                alert('삭제 실패하였습니다.', '/bbs/board/view/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5).'/page/'.$this->uri->segment(7));
+                alert('삭제 실패하였습니다.', '/bbs/board/view/'.$table.'/board_id/'.$board_id.'/page/'.$page);
             }
         }
         else

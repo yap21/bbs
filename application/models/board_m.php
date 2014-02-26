@@ -134,13 +134,13 @@ class Board_m extends CI_Model
 
     /**
      * 게시물 작성자 아이디 반환
+     *
+     * @param string $table 게시파 테이브
+     * @param string $board_id 게시물 번호
      * return string 작성자 아이디
      */
-    function writer_check()
+    function writer_check($table, $board_id)
     {
-        $table = $this->uri->segment(3);
-        $board_id = $this->uri->segment(5);
-
         $sql = "SELECT user_id FROM ".$table." WHERE board_id = '".$board_id."'";
         $query = $this->db->query($sql);
 
