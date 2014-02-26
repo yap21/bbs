@@ -5,7 +5,7 @@
                 alert('제목을 입력해주세요.');
                 $("#input01").focus();
                 return false;
-            }else{
+            }else if($('#input02').val() == ''){
                 alert('내용을 입력해주세요.');
                 $("#input02").focus();
                 return false;

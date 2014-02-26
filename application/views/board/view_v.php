@@ -1,79 +1,83 @@
-<script type="text/javascript" src="/include/js/httpRequest.js"></script>
+<!--<script type="text/javascript" src="/include/js/httpRequest.js"></script>-->
 <script type="text/javascript">
-    function comment_add()
+    $(function(){
+        $("#comment_add").click(function(){
+            $.ajax({
+                url: "/bbs/ajax_board/ajax_comment_add",
+                type: "POST",
+                data: {
+                    "comment_contents": encodeURIComponent($("#input01").val()),
+                    "csrf_test_name": $.cookie('csrf_cookie_name'),
+                    "table": "<?php echo $this->uri->segment(3);?>",
+                    "board_id": "<?php echo $this->uri->segment(5);?>"
+                },
+                datatype: "html",
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success')
+                    {
+                        if(xhr.responseText == 1000)
+                        {
+                            alert('댓글 내용을 입력하세요');
+                        }
+                        else if(xhr.responseText == 2000)
+                        {
+                            alert('다시 입력하세요');
+                        }
+                        else if(xhr.responseText == 9000)
+                        {
+                            alert('로그인하여야 합니다.');
+                        }
+                        else
+                        {
+                            $("#comment_area").html(xhr.responseText);
+                            $("#input01").val('');
+                        }
+                    }
+                }
+            });
+        });
+
+        addDeleteButtonEvents();
+    });
+
+    function addDeleteButtonEvents()
     {
-        var csrf_token = getCookie('csrf_cookie_name');
-        var name = "comment_contents=" + encodeURIComponent(document.com_add.comment_contents.value) + "&csrf_test_name=" + csrf_token + "&table=<?php echo $this->uri->segment(3);?>&board_id=<?php echo $this->uri->segment(5);?>";
-        sendRequest("/bbs/ajax_board/ajax_comment_add", name, add_action, "POST");
+        $(".comment_delete").click(function(){
+            $.ajax({
+                url: "/bbs/ajax_board/ajax_comment_delete",
+                type: "POST",
+                data: {
+                    "csrf_test_name": $.cookie('csrf_cookie_name'),
+                    "table": "<?php echo $this->uri->segment(3);?>",
+                    "board_id": $(this).attr("vals")
+                },
+                datatype: "text",
+                complete:function(xhr, textStatus){
+                    if(textStatus == 'success')
+                    {
+                        if(xhr.responseText == 9000)
+                        {
+                            alert('로그인하여야 합니다.');
+                        }
+                        else if(xhr.responseText == 8000)
+                        {
+                            alert('본인의 댓글만 삭제할 수 있습니다.');
+                        }
+                        else if(xhr.responseText == 2000)
+                        {
+                            alert('다시 삭제하세요.');
+                        }
+                        else
+                        {
+                            $("#row_num_" + xhr.responseText).remove();
+                            alert('삭제되었습니다.');
+                        }
+                    }
+                }
+            });
+        });
     }
-
-    function add_action()
-    {
-        if(httpRequest.readyState == 4)
-        {
-            if(httpRequest.status == 200)
-            {
-                if(httpRequest.responseText == 1000)
-                {
-                    alert('댓글 내용을 입력하세요');
-                }
-                else if(httpRequest.responseText == 2000)
-                {
-                    alert('다시 입력하세요')
-                }
-                else if(httpRequest.responseText == 9000)
-                {
-                    alert('로그인하여야 합니다.')
-                }
-                else
-                {
-                    var contents = document.getElementById("comment_area");
-                    contents.innerHTML = httpRequest.responseText;
-
-                    var textarea = document.getElementById("input01");
-                    textarea.value = '';
-                }
-            }
-        }
-    }
-
-    function comment_delete(no)
-    {
-        var csrf_token = getCookie('csrf_cookie_name');
-        var name = "csrf_test_name=" + csrf_token + "&table=<?php echo $this->uri->segment(3);?>&board_id=" + no;
-        sendRequest("/bbs/ajax_board/ajax_comment_delete", name, delete_action, "POST");
-    }
-
-    function delete_action()
-    {
-        if(httpRequest.readyState == 4)
-        {
-            if(httpRequest.status == 200)
-            {
-                if(httpRequest.responseText == 9000)
-                {
-                    alert('로그인하여야 합니다.');
-                }
-                else if(httpRequest.responseText == 8000)
-                {
-                    alert('본인의 댓글만 삭제할 수 있습니다.')
-                }
-                else if(httpRequest.responseText == 2000)
-                {
-                    alert('다시 삭제하세요.')
-                }
-                else
-                {
-                    var no = httpRequest.responseText;
-                    var delete_tr = document.getElementById("row_num_"+ no);
-
-                    delete_tr.parentNode.removeChild(delete_tr);
-                    alert('삭제되었습니다.');
-                }
-            }
-        }
-    }
-
+    /*
     function getCookie(name)
     {
         var nameOfCookie = name + "=";
@@ -94,6 +98,7 @@
         }
         return "";
     }
+    */
 </script>
 <article id="board_area">
     <header>
@@ -132,7 +137,7 @@
                 <label class="control-label" form="input01">댓글</label>
                 <div class="controls">
                     <textarea class="input-xlarge" id="input01" name="comment_contents" rows="3"></textarea>
-                    <input class="btn btn-primary" type="button" onclick="comment_add()" value="작성">
+                    <input class="btn btn-primary" type="button" id="comment_add" value="작성">
                     <p class="help-block"></p>
                 </div>
             </div>
@@ -151,7 +156,7 @@
                 </th>
                 <td><?php echo $lt->contents;?></td>
                 <td><time datetime="<?php echo $lt->reg_date;?>"><?php echo $lt->reg_date;?></time></td>
-                <td><a href="#" onclick="javascript:comment_delete('<?php echo $lt->board_id;?>')"><i class="icon-trash"></i>삭제</a></td>
+                <td><a href="#" class="comment_delete" vals="<?php echo $lt->board_id;?>"><i class="icon-trash"></i>삭제</a></td>
             </tr>
             <?php
             }

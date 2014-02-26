@@ -52,18 +52,20 @@ class Ajax_board extends CI_Controller {
                     $sql = "SELECT * FROM ".$table." WHERE board_pid = '".$board_id."' ORDER BY board_id DESC";
                     $query = $this->db->query($sql);
                     ?>
+                        <script type="text/javascript">addDeleteButtonEvents();</script>
                         <table cellspacing="0" cellpadding="0" class="table table-striped">
                             <tbody>
                             <?php
                             foreach($query->result() as $lt)
                             {
                             ?>
-                            <tr>
+                            <tr id="row_num_<?php echo $lt->board_id;?>">
                                 <th scope="row">
                                     <?php echo $lt->user_id;?>
                                 </th>
                                 <td><?php echo $lt->contents;?></td>
                                 <td><time datetime="<?php echo $lt->reg_date;?>"><?php echo $lt->reg_date;?></time></td>
+                                <td><a href="#" class="comment_delete" vals="<?php echo $lt->board_id;?>"><i class="icon-trash"></i>삭제</a></td>
                             </tr>
                             <?php
                             }
